@@ -80,7 +80,7 @@ CREATE TABLE MENU_TOPPING ( -- เมนูสามารถเพิ่ม top
 -- =========================================
 
 CREATE TABLE TABLES (
-    Table_ID VARCHAR(6) PRIMARY KEY,
+    Table_ID VARCHAR(3) PRIMARY KEY,
     Number_Of_Seats INT NOT NULL,
     Status VARCHAR(1) NOT NULL DEFAULT 'A' CHECK (Status IN ('A', 'U', 'P')), -- สถานะของโต๊ะ (A = ว่าง | U = ไม่ว่าง | P = ชำระเงิน)
     Last_Update TIMESTAMP NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE TABLES (
 
 CREATE TABLE ORDERS (
     Order_ID SERIAL PRIMARY KEY,
-    Table_ID VARCHAR(6) REFERENCES TABLES(Table_ID),
+    Table_ID VARCHAR(3) REFERENCES TABLES(Table_ID),
     Order_Date TIMESTAMP NOT NULL,
     Amount DECIMAL(10, 2) NOT NULL,
     Status VARCHAR(1) NOT NULL DEFAULT 'A' CHECK (Status IN ('A', 'U')), -- สถานะของออเดอร์ (A = กำลังใช้งาน | U = ชำระเงินแล้ว)
