@@ -18,6 +18,7 @@ SELECT Name, Price
 FROM MENU
 WHERE Category_Menu_ID = 2;
 
+
 -- แสดงพนักงานทั้งหมดในร้าน
 SELECT First_Name, Last_Name, MT.Name, Phone
 FROM MEMBER M
