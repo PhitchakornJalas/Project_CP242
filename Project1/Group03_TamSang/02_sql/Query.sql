@@ -38,3 +38,26 @@ LEFT JOIN ORDER_ITEM_TOPPING OIT ON OI.Order_Item_ID = OIT.Order_Item_ID
 LEFT JOIN MENU T ON OIT.Topping_ID = T.Menu_ID
 WHERE OI.Order_ID = 5;
 
+-- order ที่มี topping มากที่สุด
+select *
+from (
+	select
+	order_id,
+	total_topping_per_order,
+	dense_rank() over(
+						ORDER BY total_topping_per_order DESC
+						)AS rn
+	from (
+		select order_id, SUM(total_topping) as total_topping_per_order
+		from (
+			select ot.order_id, ot.order_item_id, COUNT(otp.topping_id) AS total_topping
+			from order_item ot
+			join order_item_topping otp on ot.order_item_id = otp.order_item_id
+			group by  ot.order_id, ot.order_item_id
+		)
+		group by order_id
+	)
+)
+where rn = 1;
+
+
